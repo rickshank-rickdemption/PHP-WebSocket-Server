@@ -56,9 +56,9 @@
         const resetFiltersBtn = document.getElementById('reset-filters');
 
         const wsProtocol = location.protocol === 'https:' ? 'wss' : 'ws';
-        const wsHost = location.hostname || 'localhost';
+        const wsHost = 'php-websocket-server.onrender.com';
         const wsToken = 'changeme';
-        const wsUrl = `${wsProtocol}://${wsHost}:8080?token=${encodeURIComponent(wsToken)}`;
+        const wsUrl = `${wsProtocol}://${wsHost}?token=${encodeURIComponent(wsToken)}`;
 
         const socket = new WebSocket(wsUrl);
 

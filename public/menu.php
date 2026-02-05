@@ -181,9 +181,9 @@
         }
 
         const wsProtocol = location.protocol === 'https:' ? 'wss' : 'ws';
-        const wsHost = location.hostname || 'localhost';
+        const wsHost = 'php-websocket-server.onrender.com';
         const wsToken = 'changeme';
-        const socket = new WebSocket(`${wsProtocol}://${wsHost}:8080?token=${encodeURIComponent(wsToken)}`);
+        const socket = new WebSocket(`${wsProtocol}://${wsHost}?token=${encodeURIComponent(wsToken)}`);
 
         socket.onopen = () => console.log('Connected to Ramen Kitchen Socket');
         socket.onmessage = (event) => {
