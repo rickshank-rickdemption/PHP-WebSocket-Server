@@ -27,7 +27,7 @@
         <a href="index.php" class="text-gray-500 text-xs tracking-widest uppercase hover:text-red-900 transition">
             &larr; Return
         </a>
-        <button onclick="toggleCart()" class="relative bg-black text-white px-4 py-2 text-xs tracking-widest uppercase flex items-center gap-2 w-full sm:w-auto justify-center">
+        <button onclick="toggleCart()" class="relative bg-black text-white px-4 py-2 text-xs tracking-widest uppercase hidden sm:flex items-center gap-2 w-full sm:w-auto justify-center">
             <span class="sr-only">Open Order</span>
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M3 12c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 7 0"/>
@@ -35,7 +35,7 @@
                 <path d="M7 9V4m5 5V4m5 5V4"/>
             </svg>
             <span>Order</span>
-            <span class="absolute -top-2 -right-2 bg-white text-black text-[10px] px-1.5 py-0.5 rounded-full border border-black" id="cart-count">0</span>
+            <span class="absolute -top-2 -right-2 bg-white text-black text-[10px] px-1.5 py-0.5 rounded-full border border-black cart-count">0</span>
         </button>
     </div>
 
@@ -48,25 +48,24 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32" id="menu-grid">
             
             <?php
-            $ramens = [
-                ["id" => 1, "name" => "Tensai Shio", "price" => 1200, "desc" => "Mongolian rock salt, kelp base, truffle oil.", "img" => "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=600"],
-                ["id" => 2, "name" => "Rich Tonkotsu", "price" => 1100, "desc" => "72-hr pork emulsion, chashu, black garlic oil.", "img" => "https://images.unsplash.com/photo-1591814468924-caf88d1232e1?q=80&w=600"],
-                ["id" => 3, "name" => "Spicy Miso", "price" => 1350, "desc" => "Hokkaido miso blend, house chili rayu, butter corn.", "img" => "https://dishingouthealth.com/wp-content/uploads/2022/01/SpicyMisoRamen_Square.jpg"],
-                ["id" => 4, "name" => "Wagyu Shoyu", "price" => 2500, "desc" => "A5 Miyazaki Wagyu slice, aged soy broth.", "img" => "https://img.freepik.com/premium-photo/rare-slice-a5-wagyu-with-minced-scallion-daikon-shoyu-sauce_43263-1463.jpg"],
-                ["id" => 5, "name" => "Black Garlic Ramen", "price" => 1250, "desc" => "Fermented garlic oil, toasted sesame, double chashu.", "img" => "https://images.pexels.com/photos/884600/pexels-photo-884600.jpeg?auto=compress&cs=tinysrgb&w=600"],
-                ["id" => 6, "name" => "Yuzu Shio", "price" => 1400, "desc" => "Clear chicken dashi with Japanese citron zest.", "img" => "https://images.pexels.com/photos/1907229/pexels-photo-1907229.jpeg?auto=compress&cs=tinysrgb&w=600"],
-                ["id" => 7, "name" => "Vegan Tantanmen", "price" => 1300, "desc" => "Soy milk broth, spicy soy crumbles, bok choy.", "img" => "https://images.pexels.com/photos/2664216/pexels-photo-2664216.jpeg?auto=compress&cs=tinysrgb&w=600"],
-                ["id" => 8, "name" => "Truffle Shoyu", "price" => 1800, "desc" => "Porcini infused soy broth with shaved black truffle.", "img" => "https://images.pexels.com/photos/11213749/pexels-photo-11213749.jpeg?auto=compress&cs=tinysrgb&w=600"]
-            ];
+            $dataFile = __DIR__ . '/../data/menu.json';
+            $ramens = [];
+            if (is_file($dataFile)) {
+                $json = file_get_contents($dataFile);
+                $decoded = json_decode($json, true);
+                if (is_array($decoded)) {
+                    $ramens = $decoded;
+                }
+            }
 
-            foreach($ramens as $r): ?>
+            foreach ($ramens as $r): ?>
                 <div class="menu-card p-6 flex gap-6 items-center rounded-sm opacity-0 translate-y-10">
-                    <img src="<?= $r['img'] ?>" class="w-32 h-32 object-cover rounded-sm shadow-md">
+                    <img src="<?= $r['img'] ?>" loading="lazy" decoding="async" width="128" height="128" class="w-32 h-32 object-cover rounded-sm shadow-md">
                     <div class="flex-1">
                         <h3 class="serif text-xl mb-2"><?= $r['name'] ?></h3>
                         <p class="text-xs text-gray-500 mb-2"><?= $r['desc'] ?></p>
                         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-2">
-                            <div class="inline-block text-[10px] font-bold text-[#7A2E2E] bg-[#F3ECE7] px-2.5 py-1 rounded-full tracking-widest">¥<?= $r['price'] ?></div>
+                            <div class="inline-block w-fit whitespace-nowrap text-[10px] font-bold text-[#7A2E2E] bg-[#F3ECE7] px-2.5 py-1 rounded-full tracking-widest">¥<?= $r['price'] ?></div>
                             <button onclick="addToCart('<?= $r['name'] ?>', <?= $r['price'] ?>)" class="text-[10px] uppercase tracking-widest border border-black px-4 py-2 hover:bg-black hover:text-white transition">
                                 Add to Order
                             </button>
@@ -97,6 +96,16 @@
             </button>
         </div>
     </div>
+
+    <button onclick="toggleCart()" class="fixed bottom-6 right-6 z-[120] sm:hidden bg-black text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center">
+        <span class="sr-only">Open Order</span>
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 7 0"/>
+            <path d="M4 14h16l-1.2 4.2A2 2 0 0 1 16.9 20H7.1a2 2 0 0 1-1.9-1.8L4 14Z"/>
+            <path d="M7 9V4m5 5V4m5 5V4"/>
+        </svg>
+        <span class="absolute -top-1 -right-1 bg-white text-black text-[10px] px-1.5 py-0.5 rounded-full border border-black cart-count">0</span>
+    </button>
 
     <div id="modal-backdrop" class="fixed inset-0 bg-black/50 z-[200] hidden"></div>
     <div id="confirm-modal" class="fixed inset-0 z-[210] hidden items-center justify-center p-6">
@@ -138,10 +147,10 @@
 
         function updateUI() {
             const list = document.getElementById('cart-items');
-            const count = document.getElementById('cart-count');
+            const counts = document.querySelectorAll('.cart-count');
             const total = document.getElementById('total-price');
             
-            count.innerText = cart.length;
+            counts.forEach(el => { el.innerText = cart.length; });
             list.innerHTML = cart.map((item, index) => `
                 <div class="flex justify-between items-center animate-fade-in">
                     <div>

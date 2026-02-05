@@ -139,6 +139,7 @@
             applyFilter();
         }
 
+        setStatus('Connecting...', false);
         socket.addEventListener('open', () => setStatus('Connected', true));
         socket.addEventListener('close', () => setStatus('Disconnected', false));
         socket.addEventListener('error', () => setStatus('Error', false));

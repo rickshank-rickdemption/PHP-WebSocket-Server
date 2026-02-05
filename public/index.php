@@ -84,7 +84,7 @@
 
     <header class="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
         <div class="absolute inset-0 hero-wrap z-0">
-             <video autoplay muted loop playsinline>
+             <video autoplay muted loop playsinline preload="metadata">
                 <source src="img/79900-570532758.mp4" type="video/mp4">
             </video>
         </div>
@@ -114,7 +114,7 @@
         </div>
         <div class="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
             <div class="clip-circle w-full h-full bg-black">
-                <img src="img/pexels-tian-jin-505460776-28988072.jpg" class="w-full h-full object-cover opacity-90 scale-125 img-zoom">
+                <img src="img/pexels-tian-jin-505460776-28988072.jpg" loading="lazy" decoding="async" class="w-full h-full object-cover opacity-90 scale-125 img-zoom">
                 <div class="absolute bottom-10 w-full text-center text-white">
                     <p class="text-sm tracking-widest uppercase font-bold">Hokkaido Wheat • 12% Protein</p>
                 </div>
@@ -124,7 +124,7 @@
 
     <section class="relative h-[120vh] bg-black flex items-center justify-center overflow-hidden trigger-2">
         <div class="absolute inset-0 opacity-20">
-            <img src="img/pexels-airamdphoto-16388598.jpg" class="w-full h-full object-cover blur-md">
+            <img src="img/pexels-airamdphoto-16388598.jpg" loading="lazy" decoding="async" class="w-full h-full object-cover blur-md">
         </div>
         <div class="slice-container w-full h-full max-w-7xl mx-auto relative z-10">
             <div class="slice translate-y-[-100%]"></div>
@@ -140,7 +140,7 @@
 
     <section class="relative h-[150vh] bg-[#F0EFEB] flex items-center justify-center overflow-hidden trigger-3">
         <div class="absolute inset-0 z-0">
-            <img src="img/pexels-guilherme-simao-429126551-31317031.jpg" class="w-full h-full object-cover scale-110 final-dish">
+            <img src="img/pexels-guilherme-simao-429126551-31317031.jpg" loading="lazy" decoding="async" class="w-full h-full object-cover scale-110 final-dish">
             <div class="absolute inset-0 bg-black/30"></div>
         </div>
         <div class="curtain-panel curtain-left flex items-center justify-end pr-8">
@@ -158,6 +158,11 @@
 
     <footer class="bg-[#1a1a1a] text-[#F0EFEB] py-24 text-center">
         <div class="jp text-4xl mb-6">天才</div>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 text-xs uppercase tracking-widest text-gray-400">
+            <a href="admin/menu.php" class="hover:text-white transition">Menu Manager</a>
+            <span class="hidden sm:inline-block opacity-50">•</span>
+            <a href="kitchen.php" class="hover:text-white transition">Kitchen Dashboard</a>
+        </div>
         <p class="text-xs uppercase tracking-widest text-gray-500">© 2026 Shoggun's Supper.</p>
     </footer>
 
