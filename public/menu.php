@@ -51,8 +51,8 @@
             $ramens = [
                 ["id" => 1, "name" => "Tensai Shio", "price" => 1200, "desc" => "Mongolian rock salt, kelp base, truffle oil.", "img" => "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=600"],
                 ["id" => 2, "name" => "Rich Tonkotsu", "price" => 1100, "desc" => "72-hr pork emulsion, chashu, black garlic oil.", "img" => "https://images.unsplash.com/photo-1591814468924-caf88d1232e1?q=80&w=600"],
-                ["id" => 3, "name" => "Spicy Miso", "price" => 1350, "desc" => "Hokkaido miso blend, house chili rayu, butter corn.", "img" => "hhttps://dishingouthealth.com/wp-content/uploads/2022/01/SpicyMisoRamen_Square.jpg=80&w=600"],
-                ["id" => 4, "name" => "Wagyu Shoyu", "price" => 2500, "desc" => "A5 Miyazaki Wagyu slice, aged soy broth.", "img" => "https://img.freepik.com/premium-photo/rare-slice-a5-wagyu-with-minced-scallion-daikon-shoyu-sauce_43263-1463.jpg=80&w=600"],
+                ["id" => 3, "name" => "Spicy Miso", "price" => 1350, "desc" => "Hokkaido miso blend, house chili rayu, butter corn.", "img" => "https://dishingouthealth.com/wp-content/uploads/2022/01/SpicyMisoRamen_Square.jpg"],
+                ["id" => 4, "name" => "Wagyu Shoyu", "price" => 2500, "desc" => "A5 Miyazaki Wagyu slice, aged soy broth.", "img" => "https://img.freepik.com/premium-photo/rare-slice-a5-wagyu-with-minced-scallion-daikon-shoyu-sauce_43263-1463.jpg"],
                 ["id" => 5, "name" => "Black Garlic Ramen", "price" => 1250, "desc" => "Fermented garlic oil, toasted sesame, double chashu.", "img" => "https://images.pexels.com/photos/884600/pexels-photo-884600.jpeg?auto=compress&cs=tinysrgb&w=600"],
                 ["id" => 6, "name" => "Yuzu Shio", "price" => 1400, "desc" => "Clear chicken dashi with Japanese citron zest.", "img" => "https://images.pexels.com/photos/1907229/pexels-photo-1907229.jpeg?auto=compress&cs=tinysrgb&w=600"],
                 ["id" => 7, "name" => "Vegan Tantanmen", "price" => 1300, "desc" => "Soy milk broth, spicy soy crumbles, bok choy.", "img" => "https://images.pexels.com/photos/2664216/pexels-photo-2664216.jpeg?auto=compress&cs=tinysrgb&w=600"],
@@ -63,11 +63,9 @@
                 <div class="menu-card p-6 flex gap-6 items-center rounded-sm opacity-0 translate-y-10">
                     <img src="<?= $r['img'] ?>" class="w-32 h-32 object-cover rounded-sm shadow-md">
                     <div class="flex-1">
-                        <div class="flex justify-between items-baseline mb-2">
-                            <h3 class="serif text-xl"><?= $r['name'] ?></h3>
-                            <span class="text-sm font-bold text-[#9A3B3B]">¥<?= $r['price'] ?></span>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-4"><?= $r['desc'] ?></p>
+                        <h3 class="serif text-xl mb-2"><?= $r['name'] ?></h3>
+                        <p class="text-xs text-gray-500 mb-2"><?= $r['desc'] ?></p>
+                        <div class="inline-block text-[10px] font-bold text-[#7A2E2E] bg-[#F3ECE7] px-2.5 py-1 rounded-full mb-4 tracking-widest">¥<?= $r['price'] ?></div>
                         <button onclick="addToCart('<?= $r['name'] ?>', <?= $r['price'] ?>)" class="text-[10px] uppercase tracking-widest border border-black px-4 py-2 hover:bg-black hover:text-white transition">
                             Add to Order
                         </button>
