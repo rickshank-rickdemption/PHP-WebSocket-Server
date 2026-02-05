@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu | Tensai Ramen</title>
+    <title>Menu | Shoggun's Supper</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Manrope:wght@300;400;600&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
     
@@ -51,8 +51,8 @@
             $ramens = [
                 ["id" => 1, "name" => "Tensai Shio", "price" => 1200, "desc" => "Mongolian rock salt, kelp base, truffle oil.", "img" => "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=600"],
                 ["id" => 2, "name" => "Rich Tonkotsu", "price" => 1100, "desc" => "72-hr pork emulsion, chashu, black garlic oil.", "img" => "https://images.unsplash.com/photo-1591814468924-caf88d1232e1?q=80&w=600"],
-                ["id" => 3, "name" => "Spicy Miso", "price" => 1350, "desc" => "Hokkaido miso blend, house chili rayu, butter corn.", "img" => "https://images.unsplash.com/photo-1547928888-50033d83b400?q=80&w=600"],
-                ["id" => 4, "name" => "Wagyu Shoyu", "price" => 2500, "desc" => "A5 Miyazaki Wagyu slice, aged soy broth.", "img" => "https://images.unsplash.com/photo-1552611052-05e197497d57?q=80&w=600"],
+                ["id" => 3, "name" => "Spicy Miso", "price" => 1350, "desc" => "Hokkaido miso blend, house chili rayu, butter corn.", "img" => "hhttps://dishingouthealth.com/wp-content/uploads/2022/01/SpicyMisoRamen_Square.jpg=80&w=600"],
+                ["id" => 4, "name" => "Wagyu Shoyu", "price" => 2500, "desc" => "A5 Miyazaki Wagyu slice, aged soy broth.", "img" => "https://img.freepik.com/premium-photo/rare-slice-a5-wagyu-with-minced-scallion-daikon-shoyu-sauce_43263-1463.jpg=80&w=600"],
                 ["id" => 5, "name" => "Black Garlic Ramen", "price" => 1250, "desc" => "Fermented garlic oil, toasted sesame, double chashu.", "img" => "https://images.pexels.com/photos/884600/pexels-photo-884600.jpeg?auto=compress&cs=tinysrgb&w=600"],
                 ["id" => 6, "name" => "Yuzu Shio", "price" => 1400, "desc" => "Clear chicken dashi with Japanese citron zest.", "img" => "https://images.pexels.com/photos/1907229/pexels-photo-1907229.jpeg?auto=compress&cs=tinysrgb&w=600"],
                 ["id" => 7, "name" => "Vegan Tantanmen", "price" => 1300, "desc" => "Soy milk broth, spicy soy crumbles, bok choy.", "img" => "https://images.pexels.com/photos/2664216/pexels-photo-2664216.jpeg?auto=compress&cs=tinysrgb&w=600"],
@@ -93,7 +93,7 @@
                 <span id="total-price" class="serif text-xl text-[#9A3B3B]">¥0</span>
             </div>
             <button id="send-order-btn" onclick="sendOrder()" class="w-full bg-[#9A3B3B] text-white py-4 text-xs tracking-widest uppercase hover:bg-black transition disabled:opacity-50">
-                Place Order via Socket
+                Place Order
             </button>
         </div>
     </div>
@@ -186,10 +186,19 @@
         const socket = new WebSocket(`${wsProtocol}://${wsHost}?token=${encodeURIComponent(wsToken)}`);
 
         socket.onopen = () => console.log('Connected to Ramen Kitchen Socket');
+        socket.onclose = () => {
+            showModal('Kitchen Offline', 'WebSocket connection closed. Check your token and server status.');
+        };
+        socket.onerror = () => {
+            showModal('Kitchen Offline', 'WebSocket error. Check your token and server status.');
+        };
         socket.onmessage = (event) => {
             const msg = JSON.parse(event.data);
             if (msg.type === 'confirm') {
                 showModal('Order Confirmed', 'Kitchen confirmed your order!');
+            }
+            if (msg.type === 'error') {
+                showModal('Kitchen Error', msg.message || 'Unauthorized or connection error.');
             }
         };
 
