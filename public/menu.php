@@ -65,10 +65,12 @@
                     <div class="flex-1">
                         <h3 class="serif text-xl mb-2"><?= $r['name'] ?></h3>
                         <p class="text-xs text-gray-500 mb-2"><?= $r['desc'] ?></p>
-                        <div class="inline-block text-[10px] font-bold text-[#7A2E2E] bg-[#F3ECE7] px-2.5 py-1 rounded-full mb-4 tracking-widest">¥<?= $r['price'] ?></div>
-                        <button onclick="addToCart('<?= $r['name'] ?>', <?= $r['price'] ?>)" class="text-[10px] uppercase tracking-widest border border-black px-4 py-2 hover:bg-black hover:text-white transition">
-                            Add to Order
-                        </button>
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-2">
+                            <div class="inline-block text-[10px] font-bold text-[#7A2E2E] bg-[#F3ECE7] px-2.5 py-1 rounded-full tracking-widest">¥<?= $r['price'] ?></div>
+                            <button onclick="addToCart('<?= $r['name'] ?>', <?= $r['price'] ?>)" class="text-[10px] uppercase tracking-widest border border-black px-4 py-2 hover:bg-black hover:text-white transition">
+                                Add to Order
+                            </button>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>
