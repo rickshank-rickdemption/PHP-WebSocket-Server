@@ -1,0 +1,19 @@
+{
+  "name": "rickshank-rickdemption/php-websocket-server",
+  "description": "PHP 8+ WebSocket server using Ratchet.",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.0",
+    "cboden/ratchet": "^0.4.4",
+    "react/event-loop": "^1.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "scripts": {
+    "start": "php bin/server.php"
+  }
+}

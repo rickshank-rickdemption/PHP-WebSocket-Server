@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: shogguns-supper-ws
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: WS_HOST
+        value: 0.0.0.0
+      - key: WS_TOKEN
+        value: changeme
+  - type: web
+    name: shogguns-supper-ui
+    env: docker
+    dockerfilePath: ./Dockerfile.ui
+    plan: free
+    autoDeploy: true
